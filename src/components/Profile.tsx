@@ -17,10 +17,10 @@ function Profile() {
                 </div>
                 <div>
                     <div>
-                        post 1
+                        post_1
                     </div>
                     <div>
-                        post 2
+                        post_2
                     </div>
                 </div>
             </div>
