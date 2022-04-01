@@ -11,8 +11,8 @@ function MyPosts() {
                 <button>Add post</button>
             </div>
             <div>
-                <Post message={'Hi, how are you?'}/>
-                <Post message={'It is my first post'}/>
+                <Post message={'Hi, how are you?'} counts={15}/>
+                <Post message={'It is my first post'} counts={20}/>
             </div>
         </div>
     )

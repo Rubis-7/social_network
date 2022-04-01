@@ -3,6 +3,7 @@ import s from './Post.module.css';
 
 type MessageType = {
     message: string
+    counts: number
 }
 
 function Post(props: MessageType) {
@@ -11,7 +12,7 @@ function Post(props: MessageType) {
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXeIuKElSOTid6MF787c7UTMwFPgQa7oF1ew&usqp=CAU" alt=""/>
             {props.message}
             <div>
-                <span>Like</span>
+                <span>Like {props.counts}</span>
             </div>
 
         </div>
