@@ -4,7 +4,7 @@ import MyPosts from "./MyPosts/MyPosts";
 
 function Profile() {
     return (
-        <div className={s.content}>
+        <div>
             <div>
                 <img src="https://www.shkolazhizni.ru/img/content/i187/187867_or.jpg" alt=""/>
             </div>

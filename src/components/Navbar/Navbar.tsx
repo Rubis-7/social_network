@@ -4,11 +4,11 @@ import s from './Navbar.module.css';
 function Navbar() {
     return (
         <nav className={s.nav}>
-            <div className={s.item}><a href=""></a>Profile</div>
-            <div className={`${s.item} ${s.active}`}><a href=""></a>Messages</div>
-            <div className={s.item}><a href=""></a>News</div>
-            <div className={s.item}><a href=""></a>Music</div>
-            <div className={s.item}><a href=""></a>Settings</div>
+            <div className={s.item}><a href="/profile">Profile</a></div>
+            <div className={`${s.item} ${s.active}`}><a href="/dialogs">Messages</a></div>
+            <div className={s.item}><a href="">News</a></div>
+            <div className={s.item}><a href="">Music</a></div>
+            <div className={s.item}><a href="">Settings</a></div>
             <div>Profile</div>
             <div>Profile</div>
         </nav>
