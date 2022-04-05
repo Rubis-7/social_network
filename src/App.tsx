@@ -12,17 +12,14 @@ function App() {
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
-                <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={() => <Dialogs/>}/>
-                    <Route path='/profile' render={() => <Profile/>}/>
-                    <Dialogs/>
-                    <Profile/>
+                <div className="app-wrapper-content">
+                    <Route path="/dialogs" render={() => <Dialogs/>}/>
+                    <Route path="/profile" render={() => <Profile/>}/>
                 </div>
             </div>
         </BrowserRouter>
 
     );
 }
-
 
 export default App;
