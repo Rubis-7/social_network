@@ -2,7 +2,16 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 
+
 function MyPosts() {
+
+    let postsData = [
+        {id:1, message: 'Hi, how are you?', counts: 15},
+        {id:2, message: 'It is my first post', counts: 18},
+    ]
+
+    let postsElements= postsData.map((p)=><Post message={p.message} counts={p.counts}/>)
+
     return (
         <div className={s.postBlock}>
             <h3>My posts</h3>
@@ -15,8 +24,7 @@ function MyPosts() {
                 </div>
             </div>
             <div className={s.posts}>
-                <Post message={'Hi, how are you?'} counts={15}/>
-                <Post message={'It is my first post'} counts={20}/>
+                {postsElements}
             </div>
         </div>
     )
