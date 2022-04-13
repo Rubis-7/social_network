@@ -1,17 +1,16 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
+import {StateType} from '../../../redux/state';
+
+type dataStateType={
+    dataState:StateType
+}
+
+function MyPosts(props:dataStateType) {
 
 
-
-function MyPosts() {
-
-    let postsData = [
-        {id:1, message: 'Hi, how are you?', counts: 15},
-        {id:2, message: 'It is my first post', counts: 18},
-    ]
-
-    let postsElements= postsData.map((p)=><Post message={p.message} counts={p.counts}/>)
+   let postsElements = props.dataState.profilePage.postsData.map((p)=><Post message={p.message} counts={p.counts}/>)
 
     return (
         <div className={s.postBlock}>

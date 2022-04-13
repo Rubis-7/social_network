@@ -18,13 +18,13 @@ type DialogsPageType = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
 }
-type StateType ={
+export type StateType ={
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
 
 
-let state: StateType = {
+export let state: StateType = {
     profilePage: {
         postsData: [
             {id: 1, message: 'Hi, how are you?', counts: 15},
@@ -49,4 +49,3 @@ let state: StateType = {
         ]
     },
 }
-export default state;
