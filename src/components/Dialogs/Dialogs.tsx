@@ -14,6 +14,13 @@ export const Dialogs = (props:dataStateType) => {
 
     let messagesElements = props.dataState.dialogsPage.messagesData.map((m)=><Message message={m.message}/>)
 
+    let newRostElement = React.createRef<HTMLTextAreaElement>()
+
+    let addPost = () => {
+        let text = newRostElement.current?.value
+        alert(text)
+    }
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -21,7 +28,11 @@ export const Dialogs = (props:dataStateType) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
+
             </div>
+            <textarea ref={newRostElement}></textarea>
+            <button onClick={addPost}>add</button>
+
         </div>
     )
 };

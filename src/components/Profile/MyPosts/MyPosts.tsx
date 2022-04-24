@@ -5,6 +5,7 @@ import {StateType} from '../../../redux/state';
 
 type dataStateType={
     dataState:StateType
+    addPost: (postMessage: string)=>void
 }
 
 function MyPosts(props:dataStateType) {
@@ -12,15 +13,23 @@ function MyPosts(props:dataStateType) {
 
    let postsElements = props.dataState.profilePage.postsData.map((p)=><Post message={p.message} counts={p.counts}/>)
 
+    let newRostElement = React.createRef<HTMLTextAreaElement>()
+
+    let addPost = () => {
+      if (newRostElement.current){
+      props.addPost(newRostElement.current.value)
+          newRostElement.current.value = ''
+    }}
+
     return (
         <div className={s.postBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newRostElement}></textarea>
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>

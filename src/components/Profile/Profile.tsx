@@ -6,13 +6,16 @@ import {StateType} from '../../redux/state';
 
 type dataStateType={
     dataState:StateType
+    addPost: (postMessage: string)=>void
 }
 
 function Profile (props:dataStateType) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts dataState={props.dataState}/>
+            <MyPosts
+                dataState={props.dataState}
+                addPost={props.addPost}/>
         </div>
     )
 }
