@@ -2,11 +2,12 @@ import React from 'react';
 import s from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
-import {StateType} from '../../redux/state';
+import {ProfilePageType, StateType} from '../../redux/state';
 
 type dataStateType={
-    dataState:StateType
-    addPost: (postMessage: string)=>void
+    updateNewPostText: (newText: string) => void
+    profilePage:ProfilePageType
+    addPost: ()=>void
 }
 
 function Profile (props:dataStateType) {
@@ -14,7 +15,8 @@ function Profile (props:dataStateType) {
         <div>
             <ProfileInfo/>
             <MyPosts
-                dataState={props.dataState}
+                updateNewPostText={props.updateNewPostText}
+                profilePage={props.profilePage}
                 addPost={props.addPost}/>
         </div>
     )

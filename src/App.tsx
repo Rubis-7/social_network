@@ -12,8 +12,9 @@ import {StateType} from './redux/state';
 
 
 type PropsState ={
+    updateNewPostText: (newText: string) => void
     stateNew:StateType
-    addPost: (postMessage: string)=>void
+    addPost: ()=>void
 }
 function App(props:PropsState) {
     return (
@@ -24,7 +25,8 @@ function App(props:PropsState) {
                 <div className="app-wrapper-content">
                     <Route path="/dialogs" render={() => <Dialogs dataState={props.stateNew}/>}/>
                     <Route path="/profile" render={() => <Profile
-                        dataState={props.stateNew} addPost={props.addPost}/>}/>
+                        profilePage={props.stateNew.profilePage} addPost={props.addPost}
+                        updateNewPostText={props.updateNewPostText}/>}/>
                     <Route path="/News" render={() => <News/>}/>
                     <Route path="/Music" render={() => <Music/>}/>
                     <Route path="/Settings" render={() => <Settings/>}/>
