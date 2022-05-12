@@ -1,10 +1,7 @@
 
-
-// let rerenderEntireTree = (state: StateType) => {
-//     console.log('State changed')
-// }
-
-import {rerenderEntireTree} from '../index';
+let rerenderEntireTree = () => {
+    console.log('State changed')
+}
 
 type MessagesDataType = {
     id: number
@@ -68,10 +65,16 @@ export const addPost = () => {
     }
     state.profilePage.postsData.push(newPost)
     state.profilePage.newPostText = ''
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
+
+export const subscribe = (observer:()=>void) => {
+    rerenderEntireTree = observer
+}
+
+
