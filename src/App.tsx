@@ -8,13 +8,12 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
-import {StateType} from './redux/state';
+import {ActionsTypes, StateType} from './redux/state';
 
 
 type PropsState ={
-    updateNewPostText: (newText: string) => void
     stateNew:StateType
-    addPost: ()=>void
+    dispatch:(action: ActionsTypes) => void
 }
 function App(props:PropsState) {
     return (
@@ -25,8 +24,9 @@ function App(props:PropsState) {
                 <div className="app-wrapper-content">
                     <Route path="/dialogs" render={() => <Dialogs dataState={props.stateNew}/>}/>
                     <Route path="/profile" render={() => <Profile
-                        profilePage={props.stateNew.profilePage} addPost={props.addPost}
-                        updateNewPostText={props.updateNewPostText}/>}/>
+                        profilePage={props.stateNew.profilePage} dispatch={props.dispatch}
+                        // updateNewPostText={props.updateNewPostText}
+                    />}/>
                     <Route path="/News" render={() => <News/>}/>
                     <Route path="/Music" render={() => <Music/>}/>
                     <Route path="/Settings" render={() => <Settings/>}/>

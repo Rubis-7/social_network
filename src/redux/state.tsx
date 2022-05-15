@@ -1,3 +1,5 @@
+import {ChangeEvent} from 'react';
+
 type MessagesDataType = {
     id: number
     message: string
@@ -19,21 +21,27 @@ type DialogsPageType = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
 }
-export type StateType ={
+export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
-export type StoreType ={
+export type StoreType = {
     _state: StateType,
-    _rerenderEntireTree: ()=>void,
-    addPost: ()=>void,
-    subscribe: (observer:()=>void)=>void,
-    updateNewPostText: (newText: string)=>void,
-    getState:()=>StateType
-
+    _rerenderEntireTree: () => void,
+    subscribe: (observer: () => void) => void,
+    getState: () => StateType
+    dispatch: (action: AddPostActionType | ChangeNewTextActionType) => void
 }
+type AddPostActionType = {
+    type: 'ADD-POST',
+}
+type ChangeNewTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT',
+    newText: string
+}
+export type ActionsTypes = AddPostActionType | ChangeNewTextActionType
 
-let store: StoreType ={
+let store: StoreType = {
     _state: {
         profilePage: {
             postsData: [
@@ -60,29 +68,30 @@ let store: StoreType ={
             ]
         },
     },
-    _rerenderEntireTree () {
+    _rerenderEntireTree() {
         console.log('State changed')
     },
-    addPost () {
-        const newPost: PostsDataType = {
-            id: new Date().getTime(),
-            message: this._state.profilePage.newPostText,
-            counts: 0
-        }
-        this._state.profilePage.postsData.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._rerenderEntireTree()
-    },
-    updateNewPostText (newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._rerenderEntireTree()
-    },
-    subscribe (observer) {
+    subscribe(observer) {
         this._rerenderEntireTree = observer
     },
     getState() {
         return this._state
+    },
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            const newPost: PostsDataType = {
+                id: new Date().getTime(),
+                message: this._state.profilePage.newPostText,
+                counts: 0
+            }
+            this._state.profilePage.postsData.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._rerenderEntireTree()
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText
+            this._rerenderEntireTree()
+        }
     }
 }
 
-export  default store
+export default store
