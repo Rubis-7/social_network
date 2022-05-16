@@ -1,7 +1,13 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {ActionsTypes, ProfilePageType, StateType} from '../../../redux/state';
+import {
+    ActionsTypes,
+    addPostActionCreator,
+    ProfilePageType,
+    StateType,
+    updateNewPostTextActionCreator
+} from '../../../redux/state';
 
 type dataStateType = {
     profilePage: ProfilePageType
@@ -10,18 +16,17 @@ type dataStateType = {
 
 function MyPosts(props: dataStateType) {
 
-
     let postsElements = props.profilePage.postsData.map((p) => <Post message={p.message} counts={p.counts}/>)
 
     // let newRostElement = React.createRef<HTMLTextAreaElement>()
 
     let addPost = () => {
-        props.dispatch({type: 'ADD-POST'})
+        props.dispatch(addPostActionCreator())
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.currentTarget.value
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text})
+        props.dispatch(updateNewPostTextActionCreator(text))
     }
 
     return (
