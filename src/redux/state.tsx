@@ -1,5 +1,3 @@
-import {ChangeEvent} from 'react';
-
 type MessagesDataType = {
     id: number
     message: string
@@ -20,6 +18,7 @@ export type ProfilePageType = {
 type DialogsPageType = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
+    newMessageBody: string
 }
 export type StateType = {
     profilePage: ProfilePageType
@@ -30,22 +29,33 @@ export type StoreType = {
     _rerenderEntireTree: () => void,
     subscribe: (observer: () => void) => void,
     getState: () => StateType
-    dispatch: (action: AddPostActionType | ChangeNewTextActionType) => void
+    dispatch: (action: AddPostActionType | ChangeNewTextActionType | addMessageActionType | sendMessageType) => void
 }
 type AddPostActionType = ReturnType<typeof addPostActionCreator>
 type ChangeNewTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
-export type ActionsTypes = AddPostActionType | ChangeNewTextActionType
+type addMessageActionType = ReturnType<typeof updateNewMessageBodyCreator>
+type sendMessageType = ReturnType<typeof sendMessageCreator>
+export type ActionsTypes = AddPostActionType | ChangeNewTextActionType | addMessageActionType | sendMessageType
 
 export let addPostActionCreator = () => {
     return {
         type: 'ADD-POST'
     } as const
 }
-
-export let updateNewPostTextActionCreator = (newText:string) => {
+export let updateNewMessageBodyCreator = (body: string) => {
+    return {
+        type: 'UPDATE-NEW-MESSAGE-BODY', body: body
+    } as const
+}
+export let sendMessageCreator = () => {
+    return {
+        type: 'SEND_MESSAGE'
+    } as const
+}
+export let updateNewPostTextActionCreator = (newText: string) => {
     return {
         type: 'UPDATE-NEW-POST-TEXT', newText: newText
-    }as const
+    } as const
 }
 
 let store: StoreType = {
@@ -72,7 +82,8 @@ let store: StoreType = {
                 {id: 3, message: 'Yo'},
                 {id: 4, message: 'Yo'},
                 {id: 5, message: 'Yo'},
-            ]
+            ],
+            newMessageBody: ''
         },
     },
     _rerenderEntireTree() {
@@ -96,6 +107,14 @@ let store: StoreType = {
             this._rerenderEntireTree()
         } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newText
+            this._rerenderEntireTree()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
+            this._state.dialogsPage.newMessageBody = action.body
+            this._rerenderEntireTree()
+        } else if (action.type === 'SEND_MESSAGE') {
+            let body = this._state.dialogsPage.newMessageBody
+            this._state.dialogsPage.newMessageBody = '';
+            this._state.dialogsPage.messagesData.push({id: 6, message: body})
             this._rerenderEntireTree()
         }
     }

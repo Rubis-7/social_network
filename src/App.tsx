@@ -22,7 +22,7 @@ function App(props:PropsState) {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path="/dialogs" render={() => <Dialogs dataState={props.stateNew}/>}/>
+                    <Route path="/dialogs" render={() => <Dialogs dataState={props.stateNew} dispatch={props.dispatch}/>}/>
                     <Route path="/profile" render={() => <Profile
                         profilePage={props.stateNew.profilePage} dispatch={props.dispatch}
                         // updateNewPostText={props.updateNewPostText}
