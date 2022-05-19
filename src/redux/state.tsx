@@ -1,3 +1,7 @@
+import profileReducer from './profile-reducer';
+import dialogsReducer from './dialogs-reducer';
+import sidebarReducer from './sidebarReducer-reducer';
+
 type MessagesDataType = {
     id: number
     message: string
@@ -6,7 +10,7 @@ type DialogsDataType = {
     id: number
     name: string
 }
-type PostsDataType = {
+export type PostsDataType = {
     id: number
     message: string
     counts: number
@@ -23,6 +27,7 @@ type DialogsPageType = {
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
+    sidebar: object
 }
 export type StoreType = {
     _state: StateType,
@@ -85,6 +90,7 @@ let store: StoreType = {
             ],
             newMessageBody: ''
         },
+        sidebar: {}
     },
     _rerenderEntireTree() {
         console.log('State changed')
@@ -96,27 +102,33 @@ let store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            const newPost: PostsDataType = {
-                id: new Date().getTime(),
-                message: this._state.profilePage.newPostText,
-                counts: 0
-            }
-            this._state.profilePage.postsData.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._rerenderEntireTree()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText
-            this._rerenderEntireTree()
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
-            this._state.dialogsPage.newMessageBody = action.body
-            this._rerenderEntireTree()
-        } else if (action.type === 'SEND_MESSAGE') {
-            let body = this._state.dialogsPage.newMessageBody
-            this._state.dialogsPage.newMessageBody = '';
-            this._state.dialogsPage.messagesData.push({id: 6, message: body})
-            this._rerenderEntireTree()
-        }
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        this._rerenderEntireTree()
+
+        // if (action.type === 'ADD-POST') {
+        //     const newPost: PostsDataType = {
+        //         id: new Date().getTime(),
+        //         message: this._state.profilePage.newPostText,
+        //         counts: 0
+        //     }
+        //     this._state.profilePage.postsData.push(newPost)
+        //     this._state.profilePage.newPostText = ''
+        //     this._rerenderEntireTree()
+        // } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        //     this._state.profilePage.newPostText = action.newText
+        //     this._rerenderEntireTree()
+        // } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
+        //     this._state.dialogsPage.newMessageBody = action.body
+        //     this._rerenderEntireTree()
+        // } else if (action.type === 'SEND_MESSAGE') {
+        //     let body = this._state.dialogsPage.newMessageBody
+        //     this._state.dialogsPage.newMessageBody = '';
+        //     this._state.dialogsPage.messagesData.push({id: 6, message: body})
+        //     this._rerenderEntireTree()
+        // }
     }
 }
 
