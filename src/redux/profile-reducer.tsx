@@ -1,5 +1,5 @@
 import React from 'react';
-import {PostsDataType, StateType} from './state';
+import {PostsDataType} from './state';
 
 type AddPostActionType = ReturnType<typeof addPostActionCreator>
 type ChangeNewTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
